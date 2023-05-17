@@ -1,4 +1,4 @@
-import { FlatList, ScrollView, StyleSheet, Text, Image, View, SectionList, Pressable } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, Text, Image, View, SectionList, Pressable, Alert, Touchable, TouchableOpacity, Button, TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
 import { useState } from 'react';
 import AppHeader from './AppHeader';
 import AppFooter from './AppFooter';
@@ -61,16 +61,33 @@ const allVehicles = [
 
 export default function App() {
 
+  // The state hook to determine whether to show the menu or not
+  const [showMenu, setShowMenu] = useState(false);
+
+  // Invert the showMenu state whenever the event is invoked
+  const onMenuPress = () => { setShowMenu(!showMenu); };
+
   // Render the headers of section. Note that the input prop is section and we're using 'type' attribute inside
   const renderSectionHeader = ({ section }) => {
 
     const getIconUrl = () => {
       if (section.type == "Sedan") {
-        return require('./assets/icon_sedan.png');
-      } else {
-        return require('./assets/icon_generic_car.png');
+        return require('./assets/icon_sedan.png')
       }
-    };
+      if (section.type == "Hatch back") {
+        return require('./assets/icon_hatchback.png')
+      }
+      if (section.type == "SUV") {
+        return require('./assets/icon_suv.png')
+      }
+      if (section.type == "Motorcycle") {
+        return require('./assets/icon_motorcycle.png')
+      }
+      if (section.type == "Van") {
+        return require('./assets/icon_van.png')
+      }
+      return require('./assets/icon_generic_car.png')
+    }
 
     return (
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -95,26 +112,18 @@ export default function App() {
   // Separator separates items. We're only using an empty view with border for now
   const itemSeparatorComponent = () => <View style={{ borderColor: 'black', borderStyle: "dotted", borderWidth: 1 }}></View>;
 
-  // The state hook to determine whether to show the menu or not
-  const [showMenu, setShowMenu] = useState(false);
-
-  // Invert the showMenu state whenver the event is invoked
-  const onMenuPress = () => { setShowMenu(!showMenu) };
-
   return (
-    // Demo: Section List
     <View style={styles.container}>
       {/* Attach header component */}
       <AppHeader />
-      {/* <Login /> */}
       {!showMenu &&
         <Text style={styles.introText}>
           Baham is a learning project for university undergrad students, this is turning into an initiative to reduce the carbon footprint from Karachi, as well as optimize the use of private vehicles. The purpose is to be able to share rides among University students, staff and faculty members.
         </Text>
       }
-
       <Pressable onPress={onMenuPress}>
-        <Text style={styles.showMenuText}>  {showMenu ? ">>> Hide Menu <<<" : "<<< Show Menu >>>"}</Text>
+        <Text style={styles.showMenuText}>{showMenu ? ">>> Hide Menu <<<" : "<<< Show Menu >>>"}</Text>
+        <Text style={styles.showMenuText}>Or Press this</Text>
       </Pressable>
 
       {showMenu &&
