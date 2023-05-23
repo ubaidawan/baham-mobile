@@ -1,21 +1,25 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import AppHeader from './AppHeader';
 import AppFooter from './AppFooter';
 import Login from './Login';
 import Menu from './Menu';
 
-export default function App() {
+const Stack = createNativeStackNavigator();
 
+export default function App() {
   return (
-    <View style={styles.container}>
-      {/* Attach header component */}
-      <AppHeader />
-      <Login />
-      {/* <Menu /> */}
-      {/* Attach footer component */}
-      <AppFooter />
-    </View>
+    <NavigationContainer>
+      <View style={styles.container}>
+        <AppHeader />
+          <Stack.Navigator initialRouteName='Login' screenOptions={{headerStyle: {backgroundColor: 'lightyellow'}}}>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Menu" component={Menu} />
+          </Stack.Navigator>
+        <AppFooter />
+      </View>
+    </NavigationContainer>
   );
 }
 

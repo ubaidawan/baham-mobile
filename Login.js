@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const emailValidationRegex = "^[0-9A-Za-z._+]+@[A-Za-z0-9]+.[A-Za-z0-9]+$"
 
-export default function Login() {
+export default function Login({ navigation }) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,7 +18,8 @@ export default function Login() {
 
     const handleLogin = () => {
         if (validateEmail() && password.length > 8) {
-            // Navigate
+            // Navigate to the Main menu
+            navigation.navigate('Menu');
         } else {
             Alert.alert("Provide a valid Email address and Password to log in.")
         }
