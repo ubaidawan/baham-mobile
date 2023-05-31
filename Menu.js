@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Image, View, SectionList } from 'react-native';
+import { StyleSheet, Text, Image, View, SectionList, Pressable } from 'react-native';
 
 const allVehicles = [
   {
@@ -54,6 +54,17 @@ const allVehicles = [
     ]
   }
 ]
+
+const getMenuFromAPI = async () => {
+  try {
+    const response = await fetch("http://192.168.1.111:8000/api/vehicles");
+    const json = await response.json();
+    console.log(json);
+  } catch (error) {
+    console.log(error); 
+  }
+};
+
 
 export default function Menu() {
 
@@ -111,6 +122,9 @@ export default function Menu() {
         ItemSeparatorComponent={itemSeparatorComponent}
         keyExtractor={(item, index) => item.id * (item.id + index)}
         />
+        <Pressable onPress={getMenuFromAPI}>
+          <Text style={styles.link}>fetch</Text>
+        </Pressable>
     </View>
   );
 }
@@ -140,5 +154,11 @@ const styles = StyleSheet.create({
   introText: {
     fontSize: 22,
     textAlign: 'center',
-  }
+  },
+  link: {
+    textAlign: 'center',
+    fontSize: 20,
+    fontStyle: 'italic',
+    color: 'blue'
+  },
 });
