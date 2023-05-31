@@ -40,6 +40,7 @@ export default function Login({ navigation }) {
                 style={styles.input}
                 onChangeText={(value) => {setPassword(value)}}
                 value={password}
+                placeholder="Password1234"
                 secureTextEntry
                 keyboardType="default"
             />
