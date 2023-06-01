@@ -1,57 +1,38 @@
-import { StyleSheet, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import AppHeader from './AppHeader';
-import AppFooter from './AppFooter';
-import Login from './Login';
-import Menu from './Menu';
+import * as React from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import Constants from 'expo-constants';
 
-const Stack = createNativeStackNavigator();
+// You can import from local files
+import AssetExample from './components/AssetExample';
+
+// or any pure javascript modules available in npm
+import { Card } from 'react-native-paper';
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <View style={styles.container}>
-        <AppHeader />
-          <Stack.Navigator initialRouteName='Login' screenOptions={{headerStyle: {backgroundColor: 'lightyellow'}}}>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Menu" component={Menu} />
-          </Stack.Navigator>
-        <AppFooter />
-      </View>
-    </NavigationContainer>
+    <View style={styles.container}>
+      <Text style={styles.paragraph}>
+        Change code in the editor and watch it change on your phone! Save to get a shareable url.
+      </Text>
+      <Card>
+        <AssetExample />
+      </Card>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
-    backgroundColor: 'white'
+    justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: '#eef06e',
+    padding: 8,
   },
-  mainContainer: {
-    flex: 1,
-    backgroundColor: 'white'
-  },
-  menuHeader: {
-    textAlign: 'center',
-    margin: 12,
-    fontSize: 24,
-    color: 'navy',
-  },
-  menuItem: {
-    textAlign: 'center',
-    margin: 12,
-    fontSize: 24,
-    color: 'maroon'
-  },
-  showMenuText: {
+  paragraph: {
+    margin: 24,
     fontSize: 18,
-    color: 'navy',
+    fontWeight: 'bold',
     textAlign: 'center',
   },
-  introText: {
-    fontSize: 22,
-    textAlign: 'center',
-  }
 });
